@@ -1,27 +1,36 @@
 export async function POST(req) {
-  const { message } = await req.json();
+  try {
+    const { message } = await req.json();
 
-  const response = await fetch(
-    "https://www.dadgpt.live/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.DADGPT_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "dadgpt-default",
-        messages: [
-          {
-            role: "user",
-            content: message
-          }
-        ]
-      })
-    }
-  );
+    const response = await fetch(
+      "https://www.dadgpt.live/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.DADGPT_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "dadgpt-default",
+          messages: [
+            {
+              role: "user",
+              content: message,
+            },
+          ],
+        }),
+      }
+    );
 
-  const data = await response.json();
+    const text = await response.text();
 
-  return Response.json(data);
+    return Response.json({
+      status: response.status,
+      response: text,
+    });
+  } catch (err) {
+    return Response.json({
+      error: String(err),
+    });
+  }
 }
