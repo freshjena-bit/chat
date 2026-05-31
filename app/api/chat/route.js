@@ -3,7 +3,7 @@ export async function POST(req) {
     const { message } = await req.json();
 
     const response = await fetch(
-      "https://www.dadgpt.live/v1/chat/completions",
+      "https://www.dadgpt.live/v1/",
       {
         method: "POST",
         headers: {
