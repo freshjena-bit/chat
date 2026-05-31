@@ -1,6 +1,6 @@
 export async function GET() {
   const response = await fetch(
-    "https://www.dadgpt.live/v1/chat/completions",
+    "https://worm.zeabur.app/v1/chat/completions",
     {
       method: "POST",
       headers: {
@@ -8,11 +8,11 @@ export async function GET() {
         Authorization: `Bearer ${process.env.DADGPT_API_KEY}`
       },
       body: JSON.stringify({
-        model: "dadgpt-default",
+        model: "wormgpt-v1",
         messages: [
           {
             role: "user",
-            content: "halo"
+            content: "halo wormgpt"
           }
         ]
       })
